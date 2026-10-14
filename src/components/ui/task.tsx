@@ -8,7 +8,7 @@ export default function Task() {
 
   return (
     <div
-      className="w-full mt-4 pl-8 hover:cursor-pointer border-b-2"
+      className="w-full mt-4 pl-8 hover:cursor-pointer border-b"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
