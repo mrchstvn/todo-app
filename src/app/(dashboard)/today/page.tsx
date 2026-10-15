@@ -1,5 +1,6 @@
 import AddTask from "@/components/ui/add-task";
-import AddTaskButton from "@/components/ui/add-task-button";
+import AddTaskButtonSecondary from "@/components/ui/add-task-button-secondary";
+
 import Task from "@/components/ui/task";
 import Today from "@/components/ui/today";
 
@@ -10,7 +11,7 @@ export default function DashboardPage() {
       <Today />
       <Task />
       <Task />
-      <AddTaskButton />
+      <AddTaskButtonSecondary />
       <AddTask />
     </div>
   );

@@ -3,12 +3,18 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
+  SidebarGroupAction,
+  SidebarGroupContent,
   SidebarHeader,
   SidebarTrigger,
+  SidebarMenu,
 } from "@/components/ui/sidebar";
 
 import { Button } from "@/components/ui/button";
 import { Bell, User } from "lucide-react";
+import AddTaskButtonPrimary from "../ui/add-task-button-primary";
+import SidebarItems from "@/components/ui/sidebar-items";
+import SidebarFooterItems from "@/components/ui/sidebar-footer-items";
 
 export function AppSidebar() {
   return (
@@ -30,10 +36,21 @@ export function AppSidebar() {
       </SidebarHeader>
 
       <SidebarContent>
-        <SidebarGroup />
-        <SidebarGroup />
+        {/* actions */}
+        <SidebarGroup>
+          <AddTaskButtonPrimary />
+        </SidebarGroup>
+
+        {/* sidebar items */}
+        <SidebarGroup>
+          <SidebarItems />
+        </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter />
+
+      {/* footer */}
+      <SidebarFooter>
+        <SidebarFooterItems />
+      </SidebarFooter>
     </Sidebar>
   );
 }
