@@ -1,6 +1,6 @@
 import { Inbox, Plus, Calendar, X, SendHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+
 export default function AddTask() {
   return (
     <div className="flex flex-col justify-center border min-h-20 rounded-xl m-auto p-4">

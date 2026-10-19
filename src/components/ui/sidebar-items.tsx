@@ -4,6 +4,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import Link from "next/link";
 
 export default function SidebarItems() {
   const sidebarItems = [
@@ -17,13 +18,13 @@ export default function SidebarItems() {
         {sidebarItems.map((item) => (
           <SidebarMenuItem key={item.title}>
             <SidebarMenuButton className="h-10 p-4  hover:cursor-pointer">
-              <a
+              <Link
                 href={item.url}
                 className="flex flex-row gap-2 items-center w-full"
               >
                 <item.icon />
                 <span>{item.title}</span>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         ))}
