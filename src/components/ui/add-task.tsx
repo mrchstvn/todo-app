@@ -1,16 +1,16 @@
 import { Inbox, Plus, Calendar, X, SendHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { DialogClose } from "@/components/ui/dialog";
 
 export default function AddTask() {
   return (
-    <div className="flex flex-col justify-center border min-h-20 rounded-xl m-auto p-4">
+    <div className="flex flex-col justify-center ">
       {/* Input */}
-      <div className="flex flex-row gap-2 ">
-        <input
-          className="w-full focus:outline-none focus:ring-0 text-md py-2"
-          placeholder="Do 30 mins coding today"
-        ></input>
-      </div>
+
+      <input
+        className="w-full focus:outline-none focus:ring-0 text-md py-2"
+        placeholder="Do 30 mins coding today"
+      />
 
       {/* Actions */}
       <div className="flex flex-row items-center justify-between">
@@ -39,9 +39,14 @@ export default function AddTask() {
 
         {/* Right actions */}
         <div className="flex flex-row py-2 gap-2 items-center ">
-          <Button variant="ghost" className="hover:cursor-pointer p-2">
+          <DialogClose
+            render={
+              <Button variant="ghost" className="hover:cursor-pointer p-2" />
+            }
+          >
             <X />
-          </Button>
+          </DialogClose>
+
           <Button variant="default" className="hover:cursor-pointer p-2">
             <SendHorizontal />
           </Button>

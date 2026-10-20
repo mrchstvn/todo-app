@@ -1,4 +1,3 @@
-import AddTask from "@/components/ui/add-task";
 import AddTaskButtonSecondary from "@/components/ui/add-task-button-secondary";
 
 import Task from "@/components/ui/task";
@@ -12,7 +11,6 @@ export default function DashboardPage() {
       <Task />
       <Task />
       <AddTaskButtonSecondary />
-      <AddTask />
     </div>
   );
 }
