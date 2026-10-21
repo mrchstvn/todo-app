@@ -12,7 +12,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Bell, User } from "lucide-react";
-import AddTaskButtonPrimary from "../ui/add-task-button-primary";
+import AddTaskButtonPrimary from "../ui/add-task-button";
 import SidebarItems from "@/components/ui/sidebar-items";
 import SidebarFooterItems from "@/components/ui/sidebar-footer-items";
 

@@ -1,4 +1,4 @@
-import AddTaskButtonPrimary from "./add-task-button-primary";
+import AddTaskButtonPrimary from "./add-task-button";
 
 export default function EmptyTask() {
   return (

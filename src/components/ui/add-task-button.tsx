@@ -1,12 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Plus, PlusCircle, PlusSquare } from "lucide-react";
+import { PlusCircle } from "lucide-react";
 import React, { useState } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import AddTask from "@/components/ui/add-task";
+import AddTask from "@/components/ui/create-task";
 
-export default function AddTaskButtonPrimary() {
+export default function AddTaskButton() {
   return (
     <div>
       <Dialog>

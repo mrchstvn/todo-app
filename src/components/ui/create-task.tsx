@@ -1,8 +1,30 @@
+"use client";
+
 import { Inbox, Plus, Calendar, X, SendHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DialogClose } from "@/components/ui/dialog";
+import { useState } from "react";
+import { createTask } from "@/actions/task.action";
 
-export default function AddTask() {
+export default function CreateTask() {
+  const [taskName, setTaskName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async () => {
+    if (!taskName.trim()) {
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      await createTask(taskName);
+      setTaskName("");
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="flex flex-col justify-center ">
       {/* Input */}
@@ -10,6 +32,9 @@ export default function AddTask() {
       <input
         className="w-full focus:outline-none focus:ring-0 text-md py-2"
         placeholder="Do 30 mins coding today"
+        value={taskName}
+        onChange={(e) => setTaskName(e.target.value)}
+        disabled={isLoading}
       />
 
       {/* Actions */}
@@ -41,13 +66,22 @@ export default function AddTask() {
         <div className="flex flex-row py-2 gap-2 items-center ">
           <DialogClose
             render={
-              <Button variant="ghost" className="hover:cursor-pointer p-2" />
+              <Button
+                variant="ghost"
+                className="hover:cursor-pointer p-2"
+                onClick={() => setTaskName("")}
+              />
             }
           >
             <X />
           </DialogClose>
 
-          <Button variant="default" className="hover:cursor-pointer p-2">
+          <Button
+            variant="default"
+            className="hover:cursor-pointer p-2"
+            onClick={handleSubmit}
+            disabled={isLoading}
+          >
             <SendHorizontal />
           </Button>
         </div>

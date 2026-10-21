@@ -3,7 +3,7 @@ import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { PlusCircle, Plus } from "lucide-react";
-import AddTask from "@/components/ui/add-task";
+import AddTask from "@/components/ui/create-task";
 
 export default function AddTaskDialog() {
   const [isHovered, setIsHovered] = useState(false);
