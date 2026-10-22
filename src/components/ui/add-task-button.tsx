@@ -7,9 +7,11 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import AddTask from "@/components/ui/create-task";
 
 export default function AddTaskButton() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div>
-      <Dialog>
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger
           render={
             <Button
@@ -25,7 +27,7 @@ export default function AddTaskButton() {
           showCloseButton={false}
           className="p4 gap-0 min-w-xs sm:min-w-xl md:min-w-3xl lg:min-w-4xl xl:min-w-6xl"
         >
-          <AddTask />
+          <AddTask onSuccess={() => setIsOpen(false)} />
         </DialogContent>
       </Dialog>
     </div>

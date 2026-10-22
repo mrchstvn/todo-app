@@ -3,8 +3,16 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Calendar, Edit, Ellipsis, Inbox, MessageSquare } from "lucide-react";
 import React, { useState } from "react";
-export default function Task() {
+import { cn } from "@/lib/utils";
+
+type TaskProps = {
+  id: string;
+  taskName: string;
+};
+
+export default function Task({ id, taskName }: TaskProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   return (
     <div
@@ -14,8 +22,12 @@ export default function Task() {
     >
       <div className="flex flex-row items-center text-md justify-between">
         <div className="flex flex-row gap-3 items-center">
-          <Checkbox />
-          <span>Do laundry today</span>
+          <Checkbox
+            id="task"
+            checked={checked}
+            onCheckedChange={(value) => setChecked(value === true)}
+          />
+          <span className={cn(checked && "line-through")}>{taskName}</span>
         </div>
         <div className="flex flex-row gap-3 items-center">
           {isHovered && <Edit size={20} />}

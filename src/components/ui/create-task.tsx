@@ -4,9 +4,9 @@ import { Inbox, Plus, Calendar, X, SendHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DialogClose } from "@/components/ui/dialog";
 import { useState } from "react";
-import { createTask } from "@/actions/task.action";
+import { createTask } from "@/app/actions/task.action";
 
-export default function CreateTask() {
+export default function CreateTask({ onSuccess }: { onSuccess?: () => void }) {
   const [taskName, setTaskName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -19,9 +19,17 @@ export default function CreateTask() {
     try {
       await createTask(taskName);
       setTaskName("");
+      onSuccess?.(); // close the dialog***
     } catch (error) {
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handeKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSubmit();
     }
   };
 
@@ -34,6 +42,7 @@ export default function CreateTask() {
         placeholder="Do 30 mins coding today"
         value={taskName}
         onChange={(e) => setTaskName(e.target.value)}
+        onKeyDown={handeKeyDown}
         disabled={isLoading}
       />
 
