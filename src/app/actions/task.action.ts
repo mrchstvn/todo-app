@@ -2,7 +2,7 @@
 
 import { db } from "@/db";
 import { tasks } from "@/db/schema";
-import {and , desc, eq} from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
 export async function createTask(taskName: string) {
@@ -14,22 +14,39 @@ export async function createTask(taskName: string) {
       })
       .returning();
 
-      revalidatePath("/today");
+    revalidatePath("/today");
   } catch (error) {
     console.error("Failed to create task:", error);
     return { success: false, error: "Failed to create task" };
   }
 }
 
-
 export async function getTasks() {
   try {
-    return await db
-    .select()
-    .from(tasks)
-    .orderBy(desc(tasks.createdAt))
+    return await db.select().from(tasks).orderBy(desc(tasks.createdAt));
   } catch (error) {
     console.error("Failed to create task:", error);
     return [];
+  }
+}
+
+export async function updateTask(id: number, title: string) {
+  try {
+    const [updated] = await db
+      .update(tasks)
+      .set({ title })
+      .where(eq(tasks.id, id))
+      .returning();
+
+    if (!updated) {
+      return { success: false, error: "Task not found" };
+    }
+
+    return { success: true, data: updated };
+  } catch (error) {
+    console.error("Failed to update task:", error);
+    return { success: false, error: "Failed to update task" };
+  } finally {
+    revalidatePath("/today");
   }
 }
