@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Button } from "@base-ui/react";
+import { Button } from "@/components/ui/button";
 
 import { Edit } from "lucide-react";
 import { useState } from "react";
@@ -18,7 +18,7 @@ export default function UpdateTaskButton({ id, title }: UpdateTaskButtonProps) {
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger
           render={
-            <Button className="hover:cursor-pointer">
+            <Button variant="ghost" className="hover:cursor-pointer">
               <Edit size={20} />
             </Button>
           }

@@ -9,21 +9,28 @@ import EmptyTask from "@/components/ui/empty-task";
 
 async function TaskContent() {
   const tasks = await getTasks();
+  const now: Date = new Date();
 
-  if (tasks.length < 1) {
+  const todayTasks = tasks.filter((task) => isSameDay(task.due, now));
+
+  function isSameDay(a: Date, b: Date) {
+    return a.toDateString() === b.toDateString();
+  }
+
+  if (todayTasks.length < 1) {
     return <EmptyTask />;
   }
 
   return (
     <div className="flex flex-col gap-5">
       {/* header */}
+
       <div>
         <h2 className="text-2xl font-bold ">Today</h2>
         <div className="flex flex-row gap-2 items-center">
           <CheckCircle width={15} height={15} />
-
-          <span className="text-sm">
-            {tasks.length} {tasks.length === 1 ? "task" : "tasks"}
+          <span>
+            {todayTasks.length} {todayTasks.length == 1 ? "task" : "tasks"}
           </span>
         </div>
       </div>
@@ -31,9 +38,16 @@ async function TaskContent() {
       {/* tasks */}
 
       <div className="max-h-140 overflow-y-auto pr-10">
-        {tasks.map((task) => (
-          <Task key={task.id} id={String(task.id)} taskName={task.title} />
-        ))}
+        {tasks.map((task) =>
+          isSameDay(task.due, now) ? (
+            <Task
+              key={task.id}
+              id={String(task.id)}
+              taskName={task.title}
+              completed={task.isCompleted}
+            />
+          ) : null,
+        )}
       </div>
 
       {/* actions */}

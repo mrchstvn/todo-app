@@ -50,3 +50,47 @@ export async function updateTask(id: number, title: string) {
     revalidatePath("/today");
   }
 }
+
+
+export async function completeTask(id: number, completed: boolean){
+  try {
+    const [updated] = await db
+    .update(tasks)
+    .set({isCompleted: completed})
+    .where(eq(tasks.id, id))
+    .returning();
+
+    if (!updated) {
+      return { success: false, error: "Task not found" };
+    }
+
+    return { success: true, data: updated };
+
+  } catch (error) {
+    console.error("Failed to update task:", error);
+    return { success: false, error: "Failed to update task" };
+
+  } finally {
+    revalidatePath("/today");
+  }
+}
+
+export async function deleteTask(id: number){
+  try {
+    const [deleted] = await db
+    .delete(tasks)
+    .where(eq(tasks.id, id))
+    .returning();
+
+    if(!deleted){
+      return { success: false, error: "Task not found" };
+    }
+
+    return{success: true, };
+  } catch (error) {
+     console.error("Failed to delete task:", error);
+    return { success: false, error: "Failed to delete task" };
+  } finally{
+    revalidatePath("/");
+  }
+}

@@ -4,18 +4,40 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Calendar, Edit, Ellipsis, Inbox, MessageSquare } from "lucide-react";
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
-import UpdateTaskButton from "./update-task-button";
-import { Button } from "@base-ui/react";
+import UpdateTaskButton from "@/components/ui/update-task-button";
+import { Button } from "@/components/ui/button";
+import { completeTask } from "@/app/actions/task.action";
+import DeleteTaskButton from "@/components/ui/delete-task-button";
 
 type TaskProps = {
   id: string;
   taskName: string;
+  completed: boolean;
 };
 
-export default function Task({ id, taskName }: TaskProps) {
+export default function Task({ id, taskName, completed }: TaskProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(completed);
+  const [isLoading, setIsLoading] = useState(false);
 
+  const handleCheckedChange = async (value: boolean) => {
+    setChecked(value);
+    setIsLoading(true);
+
+    try {
+      const result = await completeTask(Number(id), value);
+
+      if (!result.success) {
+        setChecked(!value);
+        console.error(result.error);
+      }
+    } catch (error) {
+      setChecked(!value);
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <div
       className="w-full mt-4 pl-8 hover:cursor-pointer border-b"
@@ -27,24 +49,17 @@ export default function Task({ id, taskName }: TaskProps) {
           <Checkbox
             id={`task-${id}`}
             checked={checked}
-            onCheckedChange={(value) => setChecked(value === true)}
+            disabled={isLoading}
+            onCheckedChange={(value) => handleCheckedChange(value === true)}
           />
           <span className={cn(checked && "line-through")}>{taskName}</span>
         </div>
-        <div className="flex flex-row gap-3 items-center">
+        <div className="flex flex-row items-center">
           {isHovered && <UpdateTaskButton id={id} title={taskName} />}
+
+          {isHovered && <DeleteTaskButton id={id} />}
           {isHovered && (
-            <Button>
-              <Calendar size={20} />
-            </Button>
-          )}
-          {isHovered && (
-            <Button>
-              <MessageSquare size={20} />
-            </Button>
-          )}
-          {isHovered && (
-            <Button>
+            <Button variant="ghost" className="hover:cursor-pointer">
               <Ellipsis size={20} />
             </Button>
           )}
