@@ -3,6 +3,7 @@ import { DialogClose } from "@/components/ui/dialog";
 import { Calendar, Inbox, Plus, SendHorizontal, X } from "lucide-react";
 import { updateTask } from "@/app/actions/task.action";
 import { useState } from "react";
+import { DatePickerInput } from "./date-picker";
 
 type UpdateTaskProps = {
   onSuccess?: () => void;
@@ -66,13 +67,7 @@ export default function UpdateTask({ onSuccess, id, title }: UpdateTaskProps) {
             <span>Inbox</span>
           </Button>
 
-          <Button
-            variant="outline"
-            className="flex flex-row border p-2 items-center gap-1 hover:cursor-pointer"
-          >
-            <Calendar />
-            <span>Date</span>
-          </Button>
+          <DatePickerInput />
         </div>
 
         {/* Right actions */}

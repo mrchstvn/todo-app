@@ -45,6 +45,7 @@ async function TaskContent() {
               id={String(task.id)}
               taskName={task.title}
               completed={task.isCompleted}
+              dueDate={task.due}
             />
           ) : null,
         )}
@@ -60,7 +61,13 @@ async function TaskContent() {
 
 export default function TodayPage() {
   return (
-    <Suspense fallback={<p>Loading tasks...</p>}>
+    <Suspense
+      fallback={
+        <p className="min-h-screen flex justify-center items-center text-center text-lg">
+          Loading tasks...
+        </p>
+      }
+    >
       <TaskContent />
     </Suspense>
   );

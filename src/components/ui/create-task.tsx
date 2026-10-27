@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { DialogClose } from "@/components/ui/dialog";
 import { useState } from "react";
 import { createTask } from "@/app/actions/task.action";
+import { DatePickerInput } from "./date-picker";
 
 export default function CreateTask({ onSuccess }: { onSuccess?: () => void }) {
   const [taskName, setTaskName] = useState("");
@@ -62,13 +63,7 @@ export default function CreateTask({ onSuccess }: { onSuccess?: () => void }) {
             <span>Inbox</span>
           </Button>
 
-          <Button
-            variant="outline"
-            className="flex flex-row border p-2 items-center gap-1 hover:cursor-pointer"
-          >
-            <Calendar />
-            <span>Date</span>
-          </Button>
+          <DatePickerInput />
         </div>
 
         {/* Right actions */}

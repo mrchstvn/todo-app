@@ -13,9 +13,10 @@ type TaskProps = {
   id: string;
   taskName: string;
   completed: boolean;
+  dueDate: Date;
 };
 
-export default function Task({ id, taskName, completed }: TaskProps) {
+export default function Task({ id, taskName, completed, dueDate }: TaskProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [checked, setChecked] = useState(completed);
   const [isLoading, setIsLoading] = useState(false);
@@ -40,11 +41,11 @@ export default function Task({ id, taskName, completed }: TaskProps) {
   };
   return (
     <div
-      className="w-full mt-4 pl-8 hover:cursor-pointer border-b"
+      className="w-full mt-4 pl-8 hover:cursor-pointer border-b h-15"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="flex flex-row items-center text-md justify-between">
+      <div className="flex flex-row items-center text-md justify-between h-7">
         <div className="flex flex-row gap-3 items-center">
           <Checkbox
             id={`task-${id}`}
@@ -65,8 +66,13 @@ export default function Task({ id, taskName, completed }: TaskProps) {
           )}
         </div>
       </div>
-      <div className="text-right flex flex-row justify-end items-center gap-2 mt-2">
-        <span className="text-xs">Inbox</span> <Inbox size={12} />
+      <div className="text-right flex flex-row justify-between items-center gap-2 mt-2">
+        <span className="text-xs text-red-400">
+          Due: {dueDate.toDateString()}
+        </span>
+        <div className="text-right flex flex-row gap-1 items-center">
+          <span className="text-xs">Inbox</span> <Inbox size={12} />
+        </div>
       </div>
     </div>
   );
