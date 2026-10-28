@@ -22,10 +22,11 @@ function formatDate(date: Date | undefined) {
     return "";
   }
 
-  return date.toLocaleDateString("en-US", {
+  return date.toLocaleDateString("en-PH", {
     day: "2-digit",
     month: "long",
     year: "numeric",
+    timeZone: "Asia/Manila",
   });
 }
 
@@ -36,9 +37,12 @@ function isValidDate(date: Date | undefined) {
   return !isNaN(date.getTime());
 }
 
-export function DatePickerInput() {
+type DatePickerInputProps = {
+  date: Date | undefined;
+  onDateChange: (date: Date | undefined) => void;
+};
+export function DatePickerInput({ date, onDateChange }: DatePickerInputProps) {
   const [open, setOpen] = React.useState(false);
-  const [date, setDate] = React.useState<Date | undefined>(new Date());
   const [month, setMonth] = React.useState<Date | undefined>(date);
   const [value, setValue] = React.useState(formatDate(date));
 
@@ -50,11 +54,11 @@ export function DatePickerInput() {
           value={value}
           placeholder={formatDate(date)}
           onChange={(e) => {
-            const date = new Date(e.target.value);
+            const parsed = new Date(e.target.value);
             setValue(e.target.value);
-            if (isValidDate(date)) {
-              setDate(date);
-              setMonth(date);
+            if (isValidDate(parsed)) {
+              onDateChange(parsed);
+              setMonth(parsed);
             }
           }}
           onKeyDown={(e) => {
@@ -90,9 +94,9 @@ export function DatePickerInput() {
                 selected={date}
                 month={month}
                 onMonthChange={setMonth}
-                onSelect={(date) => {
-                  setDate(date);
-                  setValue(formatDate(date));
+                onSelect={(selected) => {
+                  onDateChange(selected);
+                  setValue(formatDate(selected));
                   setOpen(false);
                 }}
               />

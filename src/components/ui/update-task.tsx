@@ -1,20 +1,26 @@
 import { Button } from "@/components/ui/button";
 import { DialogClose } from "@/components/ui/dialog";
-import { Calendar, Inbox, Plus, SendHorizontal, X } from "lucide-react";
+import { Inbox, Plus, SendHorizontal, X } from "lucide-react";
 import { updateTask } from "@/app/actions/task.action";
 import { useState } from "react";
-import { DatePickerInput } from "./date-picker";
+import { DatePickerInput } from "@/components/ui/date-picker";
 
 type UpdateTaskProps = {
   onSuccess?: () => void;
   id: string;
   title: string;
+  due: Date;
 };
 
-export default function UpdateTask({ onSuccess, id, title }: UpdateTaskProps) {
+export default function UpdateTask({
+  onSuccess,
+  id,
+  title,
+  due,
+}: UpdateTaskProps) {
   const [taskName, setTaskName] = useState(title);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [dueDate, setDueDate] = useState<Date>(new Date(due));
   const handleSubmit = async () => {
     if (!taskName.trim()) {
       return;
@@ -22,7 +28,7 @@ export default function UpdateTask({ onSuccess, id, title }: UpdateTaskProps) {
 
     setIsLoading(true);
     try {
-      await updateTask(Number(id), taskName);
+      await updateTask(Number(id), taskName, dueDate);
 
       onSuccess?.(); // close the dialog***
     } catch (error) {
@@ -67,7 +73,12 @@ export default function UpdateTask({ onSuccess, id, title }: UpdateTaskProps) {
             <span>Inbox</span>
           </Button>
 
-          <DatePickerInput />
+          <DatePickerInput
+            date={dueDate}
+            onDateChange={(d) => {
+              if (d) setDueDate(d);
+            }}
+          />
         </div>
 
         {/* Right actions */}

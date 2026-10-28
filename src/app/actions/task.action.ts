@@ -5,12 +5,14 @@ import { tasks } from "@/db/schema";
 import { and, desc, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
-export async function createTask(taskName: string) {
+export async function createTask(taskName: string, due: Date) {
+  console.log("due received:", due.toISOString());
   try {
     const [task] = await db
       .insert(tasks)
       .values({
         title: taskName,
+        due: due,
       })
       .returning();
 
@@ -30,11 +32,11 @@ export async function getTasks() {
   }
 }
 
-export async function updateTask(id: number, title: string) {
+export async function updateTask(id: number, title: string, due: Date) {
   try {
     const [updated] = await db
       .update(tasks)
-      .set({ title })
+      .set({ title, due })
       .where(eq(tasks.id, id))
       .returning();
 

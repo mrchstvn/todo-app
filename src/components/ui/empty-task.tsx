@@ -1,4 +1,4 @@
-import AddTaskButtonPrimary from "./add-task-button";
+import AddTaskButton from "@/components/ui/add-task-button";
 
 export default function EmptyTask() {
   return (
@@ -7,7 +7,7 @@ export default function EmptyTask() {
       <p className="text-md">Your task will appear here once you make one.</p>
       <p className="text-md">Start making a task.</p>
       <div className="mt-5">
-        <AddTaskButtonPrimary />
+        <AddTaskButton />
       </div>
     </div>
   );

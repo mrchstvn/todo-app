@@ -5,12 +5,12 @@ import { Button } from "@/components/ui/button";
 import { DialogClose } from "@/components/ui/dialog";
 import { useState } from "react";
 import { createTask } from "@/app/actions/task.action";
-import { DatePickerInput } from "./date-picker";
+import { DatePickerInput } from "@/components/ui/date-picker";
 
 export default function CreateTask({ onSuccess }: { onSuccess?: () => void }) {
   const [taskName, setTaskName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  const [dueDate, setDueDate] = useState<Date>(new Date());
   const handleSubmit = async () => {
     if (!taskName.trim()) {
       return;
@@ -18,7 +18,7 @@ export default function CreateTask({ onSuccess }: { onSuccess?: () => void }) {
 
     setIsLoading(true);
     try {
-      await createTask(taskName);
+      await createTask(taskName, dueDate);
       setTaskName("");
       onSuccess?.(); // close the dialog***
     } catch (error) {
@@ -63,7 +63,12 @@ export default function CreateTask({ onSuccess }: { onSuccess?: () => void }) {
             <span>Inbox</span>
           </Button>
 
-          <DatePickerInput />
+          <DatePickerInput
+            date={dueDate}
+            onDateChange={(d) => {
+              if (d) setDueDate(d);
+            }}
+          />
         </div>
 
         {/* Right actions */}

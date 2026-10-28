@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Trash } from "lucide-react";
 import { useState } from "react";
-import DeleteTask from "./delete-task";
+import DeleteTask from "@/components/ui/delete-task";
 
 type DeleteTaskButtonProps = {
   id: string;
