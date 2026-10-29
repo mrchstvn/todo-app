@@ -12,7 +12,7 @@ async function DueContent() {
   const dueTasks = tasks.filter((task) => isDue(task.due, now));
 
   function isDue(a: Date, b: Date) {
-    return a.toDateString() < b.toDateString();
+    return a.toDateString() > b.toDateString();
   }
 
   if (dueTasks.length < 1) {

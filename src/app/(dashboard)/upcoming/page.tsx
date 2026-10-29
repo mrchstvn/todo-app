@@ -12,7 +12,7 @@ async function UpcomingContent() {
   const upcomingTasks = tasks.filter((task) => isUpcoming(task.due, now));
 
   function isUpcoming(a: Date, b: Date) {
-    return a.toDateString() > b.toDateString();
+    return a.toDateString() < b.toDateString();
   }
 
   if (upcomingTasks.length < 1) {
@@ -24,7 +24,7 @@ async function UpcomingContent() {
       {/* header */}
 
       <div>
-        <h2 className="text-2xl font-bold ">Due tasks</h2>
+        <h2 className="text-2xl font-bold ">Upcoming tasks</h2>
         <div className="flex flex-row gap-2 items-center">
           <CheckCircle width={15} height={15} />
           <span>

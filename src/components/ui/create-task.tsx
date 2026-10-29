@@ -11,6 +11,7 @@ export default function CreateTask({ onSuccess }: { onSuccess?: () => void }) {
   const [taskName, setTaskName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [dueDate, setDueDate] = useState<Date>(new Date());
+
   const handleSubmit = async () => {
     if (!taskName.trim()) {
       return;
@@ -18,10 +19,15 @@ export default function CreateTask({ onSuccess }: { onSuccess?: () => void }) {
 
     setIsLoading(true);
     try {
-      await createTask(taskName, dueDate);
+      const result = await createTask(taskName, dueDate);
+      if (!result.success) {
+        console.error(result.error);
+        return;
+      }
       setTaskName("");
       onSuccess?.(); // close the dialog***
     } catch (error) {
+      console.error("Error in creating task", error);
     } finally {
       setIsLoading(false);
     }
@@ -37,7 +43,6 @@ export default function CreateTask({ onSuccess }: { onSuccess?: () => void }) {
   return (
     <div className="flex flex-col justify-center ">
       {/* Input */}
-
       <input
         className="w-full focus:outline-none focus:ring-0 text-md py-2"
         placeholder="Do 30 mins coding today"

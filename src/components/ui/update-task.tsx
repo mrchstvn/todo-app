@@ -32,6 +32,8 @@ export default function UpdateTask({
 
       onSuccess?.(); // close the dialog***
     } catch (error) {
+      console.error("Error in updating task", error);
+      return { success: false, error: "Error in updating task" };
     } finally {
       setIsLoading(false);
     }

@@ -10,6 +10,8 @@ import EmptyTask from "@/components/ui/empty-task";
 async function TaskContent() {
   const tasks = await getTasks();
   const now: Date = new Date();
+  console.log("Tasks today", tasks);
+  console.log("Today today", now);
 
   const todayTasks = tasks.filter((task) => isSameDay(task.due, now));
 

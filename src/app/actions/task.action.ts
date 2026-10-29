@@ -6,17 +6,18 @@ import { and, desc, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
 export async function createTask(taskName: string, due: Date) {
-  console.log("due received:", due.toISOString());
+  
   try {
     const [task] = await db
       .insert(tasks)
       .values({
         title: taskName,
-        due: due,
+        due
       })
       .returning();
 
     revalidatePath("/today");
+    return { success: true, data: task };
   } catch (error) {
     console.error("Failed to create task:", error);
     return { success: false, error: "Failed to create task" };
@@ -27,7 +28,7 @@ export async function getTasks() {
   try {
     return await db.select().from(tasks).orderBy(desc(tasks.createdAt));
   } catch (error) {
-    console.error("Failed to create task:", error);
+    console.error("Failed to get task:", error);
     return [];
   }
 }
@@ -93,6 +94,6 @@ export async function deleteTask(id: number){
      console.error("Failed to delete task:", error);
     return { success: false, error: "Failed to delete task" };
   } finally{
-    revalidatePath("/");
+    revalidatePath("/today");
   }
 }
