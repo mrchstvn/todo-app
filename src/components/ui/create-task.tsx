@@ -10,6 +10,7 @@ import { DatePickerInput } from "@/components/ui/date-picker";
 export default function CreateTask({ onSuccess }: { onSuccess?: () => void }) {
   const [taskName, setTaskName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
   const [dueDate, setDueDate] = useState<Date>(new Date());
 
   const handleSubmit = async () => {
