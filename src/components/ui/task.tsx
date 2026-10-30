@@ -56,7 +56,9 @@ export default function Task({ id, taskName, completed, dueDate }: TaskProps) {
           <span className={cn(checked && "line-through")}>{taskName}</span>
         </div>
         <div className="flex flex-row items-center">
-          {isHovered && <UpdateTaskButton id={id} title={taskName} />}
+          {isHovered && (
+            <UpdateTaskButton id={id} title={taskName} due={dueDate} />
+          )}
 
           {isHovered && <DeleteTaskButton id={id} />}
           {isHovered && (

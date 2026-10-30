@@ -1,11 +1,13 @@
 //TODO
 // 1. Better error handling both in client side and server side
 // 2. Fix the sidebar. Disappearing when mouse hovers outside the page, and if in mobile state
-// 3. Set the due date of tasks and add a restriction to not set it 1 or more days ago.
-// 4. Update the due date of tasks with a restriction of not setting it 1 or more days ago.
-// 5. Group the due tasks by day.
-// 6. Group the upcoming tasks by day
-
+// * 3. Set the due date of tasks
+// 4. Add a restriction to not set it 1 or more days ago.
+// * 5. Update the due date of tasks 
+// 6. Add a restriction for due date to not set it 1 or more days ago.
+// 7. Group the due tasks by day.
+// 8. Group the upcoming tasks by day
+// 9. Make the default format for date when creating and adjusting 
 
 
 

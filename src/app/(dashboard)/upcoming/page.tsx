@@ -12,7 +12,9 @@ async function UpcomingContent() {
   const upcomingTasks = tasks.filter((task) => isUpcoming(task.due, now));
 
   function isUpcoming(a: Date, b: Date) {
-    return a.toDateString() < b.toDateString();
+    const dueDay = new Date(a.getFullYear(), a.getMonth(), a.getDate());
+    const now = new Date(b.getFullYear(), b.getMonth(), b.getDate());
+    return dueDay.getTime() > now.getTime();
   }
 
   if (upcomingTasks.length < 1) {

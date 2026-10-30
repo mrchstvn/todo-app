@@ -10,15 +10,17 @@ import EmptyTask from "@/components/ui/empty-task";
 async function TaskContent() {
   const tasks = await getTasks();
   const now: Date = new Date();
-  console.log("Tasks today", tasks);
-  console.log("Today today", now);
 
   const todayTasks = tasks.filter((task) => isSameDay(task.due, now));
 
   function isSameDay(a: Date, b: Date) {
-    return a.toDateString() === b.toDateString();
+    const dueDay = new Date(a.getFullYear(), a.getMonth(), a.getDate());
+    const now = new Date(b.getFullYear(), b.getMonth(), b.getDate());
+
+    return dueDay.getTime() === now.getTime();
   }
 
+  console.log("tasks length", todayTasks.length);
   if (todayTasks.length < 1) {
     return <EmptyTask />;
   }

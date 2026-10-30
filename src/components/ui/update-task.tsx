@@ -21,6 +21,7 @@ export default function UpdateTask({
   const [taskName, setTaskName] = useState(title);
   const [isLoading, setIsLoading] = useState(false);
   const [dueDate, setDueDate] = useState<Date>(new Date(due));
+
   const handleSubmit = async () => {
     if (!taskName.trim()) {
       return;

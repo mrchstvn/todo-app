@@ -8,9 +8,14 @@ import UpdateTask from "@/components/ui/update-task";
 type UpdateTaskButtonProps = {
   id: string;
   title: string;
+  due: Date;
 };
 
-export default function UpdateTaskButton({ id, title }: UpdateTaskButtonProps) {
+export default function UpdateTaskButton({
+  id,
+  title,
+  due,
+}: UpdateTaskButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -31,6 +36,7 @@ export default function UpdateTaskButton({ id, title }: UpdateTaskButtonProps) {
             onSuccess={() => setIsOpen(false)}
             id={id}
             title={title}
+            due={due}
           />
         </DialogContent>
       </Dialog>

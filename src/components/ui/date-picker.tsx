@@ -130,6 +130,7 @@ export function DatePickerInput({ date, onDateChange }: DatePickerInputProps) {
       </Field>
 
       <input
+        hidden
         type="time"
         value={formatTime(date)}
         onChange={(e) => {
